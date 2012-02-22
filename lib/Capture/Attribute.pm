@@ -5,7 +5,7 @@ use strict;
 
 BEGIN {
 	$Capture::Attribute::AUTHORITY = 'cpan:TOBYINK';
-	$Capture::Attribute::VERSION   = '0.001';
+	$Capture::Attribute::VERSION   = '0.002';
 }
 
 use Attribute::Handlers;
@@ -42,7 +42,7 @@ BEGIN
 				my (@args) = @_;
 				my $wa = wantarray;
 				my $stdout = Capture::Tiny::capture {
-					$wa ? $save_coderef->(1, my @r = $orig->(@args)) : 
+					$wa ? $save_coderef->(1, my @r = $orig->(@args)) :
 					defined $wa ? $save_coderef->(0, my $r = $orig->(@args)) :
 					do { $orig->(@args); $save_coderef->() } ;
 				};
@@ -56,7 +56,7 @@ BEGIN
 				my (@args) = @_;
 				my $wa = wantarray;
 				my (undef, $stderr) = Capture::Tiny::capture {
-					$wa ? $save_coderef->(1, my @r = $orig->(@args)) : 
+					$wa ? $save_coderef->(1, my @r = $orig->(@args)) :
 					defined $wa ? $save_coderef->(0, my $r = $orig->(@args)) :
 					do { $orig->(@args); $save_coderef->() } ;
 				};
@@ -70,7 +70,7 @@ BEGIN
 				my (@args) = @_;
 				my $wa = wantarray;
 				my $merged = Capture::Tiny::capture_merged {
-					$wa ? $save_coderef->(1, my @r = $orig->(@args)) : 
+					$wa ? $save_coderef->(1, my @r = $orig->(@args)) :
 					defined $wa ? $save_coderef->(0, my $r = $orig->(@args)) :
 					do { $orig->(@args); $save_coderef->() } ;
 				};
@@ -84,7 +84,7 @@ BEGIN
 				my (@args) = @_;
 				my $wa = wantarray;
 				my @r = Capture::Tiny::capture {
-					$wa ? $save_coderef->(1, my @r = $orig->(@args)) : 
+					$wa ? $save_coderef->(1, my @r = $orig->(@args)) :
 					defined $wa ? $save_coderef->(0, my $r = $orig->(@args)) :
 					do { $orig->(@args); $save_coderef->() } ;
 				};
@@ -98,7 +98,7 @@ BEGIN
 				my (@args) = @_;
 				my $wa = wantarray;
 				return Capture::Tiny::capture {
-					$wa ? $save_coderef->(1, my @r = $orig->(@args)) : 
+					$wa ? $save_coderef->(1, my @r = $orig->(@args)) :
 					defined $wa ? $save_coderef->(0, my $r = $orig->(@args)) :
 					do { $orig->(@args); $save_coderef->() } ;
 				};
@@ -237,18 +237,18 @@ inside a captured sub. The return value just doesn't get returned.
 
 =head2 How does it work?
 
-When you C<< use Capture::Attributes >>, then at BEGIN time (see 
+When you C<< use Capture::Attribute >>, then at BEGIN time (see 
 L<perlmod>) your package will be automatically made into an subclass
-of Capture::Attributes.
+of Capture::Attribute.
 
-At CHECK time (again L<perlmod>), Capture::Attributes will then use
+At CHECK time (again L<perlmod>), Capture::Attribute will then use
 L<Attribute::Handlers> to wrap each sub marked with the ":Capture"
 attribute with a sub that captures its output via L<Capture::Tiny>,
 and returns the output.
 
-At INIT time (again L<perlmod>), Capture::Attributes then removes
+At INIT time (again L<perlmod>), Capture::Attribute then removes
 itself from your package's C<< @ISA >>, thus your package is no longer
-a subclass of Capture::Attributes. (It would be nice if the
+a subclass of Capture::Attribute. (It would be nice if the
 subclassing could be avoided altogether, but alas this seems to be
 the way Attribute::Handlers works.)
 
@@ -291,9 +291,9 @@ In List context returns both.
 
 =head2 Subclassing
 
-As mentioned above, Capture::Attributes B<temporarily> installs itself
+As mentioned above, Capture::Attribute B<temporarily> installs itself
 as a superclass of your class. If your class has subs named any of
-the following, they may override the Capture::Attributes versions,
+the following, they may override the Capture::Attribute versions,
 and bad stuff may happen.
 
 =over
@@ -316,10 +316,10 @@ and bad stuff may happen.
    return "bar";
  }
  
- say quux();                              # says "foo"
- say Capture::Attributes->return->value;  # says "bar"
+ say quux();                             # says "foo"
+ say Capture::Attribute->return->value;  # says "bar"
 
-The C<< Capture::Attributes->return >> class method gives you the
+The C<< Capture::Attribute->return >> class method gives you the
 B<real> return value from the most recently captured sub. This is
 a L<Capture::Attribute::Return> object.
 
@@ -335,7 +335,7 @@ and
  sub foo { return "foo" }
 
 If the caller of the captured sub goes on to inspect
-C<< Capture::Attributes->return >>, then this assumes an implementation
+C<< Capture::Attribute->return >>, then this assumes an implementation
 detail of the captured sub, which breaks encapsulation.
 
 =head2 Adding a ":Capture" attribute to somebody else's function
@@ -369,7 +369,7 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Capture-Attribute>.
 
 =head1 SEE ALSO
 
-L<Capture::Tiny>.
+L<Capture::Tiny>, "Subroutine Attributes" in L<perlsub>.
 
 =head1 AUTHOR
 
