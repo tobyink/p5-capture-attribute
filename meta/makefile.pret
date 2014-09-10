@@ -1,0 +1,9 @@
+@prefix deps:  <http://ontologi.es/doap-deps#> .
+
+<http://purl.org/NET/cpan-uri/dist/Capture-Attribute/project>
+	deps:runtime-requirement         [ deps:on "Any::Moose"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Attribute::Handlers"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Capture::Tiny"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Sub::Name"^^deps:CpanId ];
+	deps:test-requirement            [ deps:on "Test::More 0.61"^^deps:CpanId ].
+
