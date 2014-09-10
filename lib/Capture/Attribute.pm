@@ -5,7 +5,7 @@ use strict;
 
 BEGIN {
 	$Capture::Attribute::AUTHORITY = 'cpan:TOBYINK';
-	$Capture::Attribute::VERSION   = '0.002';
+	$Capture::Attribute::VERSION   = '0.003';
 }
 
 use Attribute::Handlers;

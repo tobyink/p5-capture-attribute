@@ -5,7 +5,7 @@ use strict;
 
 BEGIN {
 	$Capture::Attribute::Return::AUTHORITY = 'cpan:TOBYINK';
-	$Capture::Attribute::Return::VERSION   = '0.002';
+	$Capture::Attribute::Return::VERSION   = '0.003';
 }
 
 use Any::Moose;
